@@ -1,8 +1,8 @@
 ---
-date: '3'
+date: '2'
 title: 'BiancoSimone'
 cover: './bs.png'
-external: 'https://biancosimone.ro/'
+external: 'https://web.archive.org/web/20221002233340/https://biancosimone.ro/'
 tech:
   - Wordpress
   - Woocommerce
