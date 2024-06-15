@@ -27,7 +27,6 @@ const StyledJobsSection = styled.section`
 const StyledTabList = styled.div`
   position: relative;
   z-index: 3;
-  width: max-content;
   padding: 0;
   margin: 0;
   list-style: none;
@@ -35,34 +34,9 @@ const StyledTabList = styled.div`
   @media (max-width: 600px) {
     display: flex;
     overflow-x: auto;
-    width: calc(100% + 100px);
-    padding-left: 50px;
-    margin-left: -50px;
+    padding-left: 0;
+    margin-left: 0;
     margin-bottom: 30px;
-  }
-  @media (max-width: 480px) {
-    width: calc(100% + 50px);
-    padding-left: 25px;
-    margin-left: -25px;
-  }
-
-  li {
-    &:first-of-type {
-      @media (max-width: 600px) {
-        margin-left: 50px;
-      }
-      @media (max-width: 480px) {
-        margin-left: 25px;
-      }
-    }
-    &:last-of-type {
-      @media (max-width: 600px) {
-        padding-right: 50px;
-      }
-      @media (max-width: 480px) {
-        padding-right: 25px;
-      }
-    }
   }
 `;
 
@@ -70,9 +44,9 @@ const StyledTabButton = styled.button`
   ${({ theme }) => theme.mixins.link};
   display: flex;
   align-items: center;
-  width: 100%;
+  width: max-content; /* Adjusted to match text width */
   height: var(--tab-height);
-  padding: 0 20px 2px;
+  padding: 0 20px 2px; /* Adjust padding as necessary */
   border-left: 2px solid var(--lightest-navy);
   background-color: transparent;
   color: ${({ isActive }) => (isActive ? 'var(--green)' : 'var(--slate)')};
@@ -116,13 +90,10 @@ const StyledHighlight = styled.div`
     top: auto;
     bottom: 0;
     width: 100%;
-    max-width: var(--tab-width);
+    max-width: var(--tab-width); /* Ensure this matches your expected width */
     height: 2px;
-    margin-left: 50px;
+    margin-left: 0; /* Adjust margin as necessary */
     transform: translateX(calc(${({ activeTabId }) => activeTabId} * var(--tab-width)));
-  }
-  @media (max-width: 480px) {
-    margin-left: 25px;
   }
 `;
 
@@ -307,4 +278,4 @@ const Jobs = () => {
   );
 };
 
-export default Jobs;
+export default Jobs
