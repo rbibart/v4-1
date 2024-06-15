@@ -1,8 +1,8 @@
 ---
-date: '2'
+date: '1'
 title: 'Enligency'
 cover: './enligency.png'
-external: 'https://enligency.eu'
+external: 'https://web.archive.org/web/20230306211458/https://enligency.eu/'
 tech:
   - Wordpress
 
