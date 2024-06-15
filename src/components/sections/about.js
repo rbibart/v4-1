@@ -138,7 +138,7 @@ const About = () => {
             <p>
               Hello! I’m a cybersecurity professional with a passion for protecting digital environments. I enjoy creating or implementing solutions that secure and empower organizations against cyber threats.
             </p>
-            <p>Here are a few skills:</p>
+            <p>Highlighted Skills:</p>
           </div>
 
           <ul className="skills-list">
