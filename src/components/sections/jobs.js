@@ -262,7 +262,6 @@ const Jobs = () => {
                   tabIndex={activeTabId === i ? '0' : '-1'}
                   aria-selected={activeTabId === i ? true : false}
                   aria-controls={`panel-${i}`}>
-                  className="latime"
                   <span>{company}</span>
                 </StyledTabButton>
               );
