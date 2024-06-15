@@ -59,8 +59,8 @@ const Hero = () => {
   }, []);
 
   const one = <h1>Hi, my name is</h1>;
-  const two = <h2 className="big-heading">Răzvan Bibarț.</h2>;
-  const three = <h3 className="big-heading">Information Security Engineer.</h3>;
+  const two = <h2 className="big-heading">Răzvan Bibarț</h2>;
+  const three = <h3 className="big-heading">Information Security Engineer</h3>;
   const four = (
     <a href={`mailto:${email}`} className="email-link">
       Get In Touch
