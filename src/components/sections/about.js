@@ -126,7 +126,7 @@ const About = () => {
     sr.reveal(revealContainer.current, srConfig());
   }, []);
 
-  const skills = ['Web Applications', 'PowerShell', 'SQL', 'Cybersecurity', 'C#', 'WordPress'];
+  const skills = [ 'Cybersecurity', 'Vulnerability Assessment', 'Penetration Testing', 'Cloud Security', 'SIEM Tools', 'Firewall Configuration and Management', 'Identity and Access Management', 'Scripting and Automation' ];
 
   return (
     <StyledAboutSection id="about" ref={revealContainer}>
@@ -136,7 +136,7 @@ const About = () => {
         <StyledText>
           <div>
             <p>
-              Hello! My name is Răzvan and I enjoy creating things.
+              Hello! I’m a cybersecurity professional with a passion for protecting digital environments. I enjoy creating or implementing solutions that secure and empower organizations against cyber threats.
             </p>
             <p>Here are a few skills:</p>
           </div>
