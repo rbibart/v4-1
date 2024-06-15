@@ -1,3 +1,40 @@
+const StyledTabButton = styled.button`
+  ${({ theme }) => theme.mixins.link};
+  display: flex;
+  align-items: center;
+  height: var(--tab-height);
+  padding: 0 20px 2px; /* Am eliminat width-ul explicit */
+
+  /* Restul stilurilor rămân neschimbate */
+
+  @media (max-width: 600px) {
+    ${({ theme }) => theme.mixins.flexCenter};
+    min-width: auto; /* Înlăturăm min-width-ul */
+    padding: 0 15px; /* Ajustăm padding-ul pentru a se potrivi cu conținutul */
+    border-left: 0;
+    border-bottom: 2px solid var(--lightest-navy);
+    text-align: center;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: var(--light-navy);
+  }
+`;
+Explicație:
+
+Am eliminat width: 100%; din StyledTabButton, deoarece dorim ca lățimea să fie determinată automat de conținutul textului.
+În media query pentru ecranele mai mici (max-width: 600px), am schimbat min-width: 120px; în min-width: auto; pentru a permite butoanelor să se extindă în funcție de conținut.
+Am ajustat padding-ul pentru a asigura că butoanele se extind suficient pentru textul din interior.
+Aceste modificări vor face ca butoanele să fie mai flexibile și să se adapteze în mod corespunzător la conținutul fiecărui tab, fără a se suprapune. Assigurati-va ca aveti grija de aspectul vizual al butoanelor in design-ul final al aplicatiei.
+
+da-mi tot codul
+
+ChatGPT
+Desigur! Îți voi oferi tot codul pentru componenta Jobs, inclusiv modificările aduse stilurilor StyledTabButton pentru a asigura că butoanele sunt exact cât textul și nu se suprapun.
+
+javascript
+Copy code
 import React, { useState, useEffect, useRef } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { CSSTransition } from 'react-transition-group';
@@ -70,24 +107,24 @@ const StyledTabButton = styled.button`
   ${({ theme }) => theme.mixins.link};
   display: flex;
   align-items: center;
-  width: 100%;
   height: var(--tab-height);
-  padding: 0 20px 2px;
-  border-left: 2px solid var(--lightest-navy);
+  padding: 0 20px 2px; /* Am eliminat width-ul explicit */
+
   background-color: transparent;
   color: ${({ isActive }) => (isActive ? 'var(--green)' : 'var(--slate)')};
   font-family: var(--font-mono);
   font-size: var(--fz-xs);
   text-align: left;
   white-space: nowrap;
+  border-left: 2px solid var(--lightest-navy);
 
   @media (max-width: 768px) {
     padding: 0 15px 2px;
   }
   @media (max-width: 600px) {
     ${({ theme }) => theme.mixins.flexCenter};
-    min-width: 120px;
-    padding: 0 15px;
+    min-width: auto; /* Înlăturăm min-width-ul */
+    padding: 0 15px; /* Ajustăm padding-ul pentru a se potrivi cu conținutul */
     border-left: 0;
     border-bottom: 2px solid var(--lightest-navy);
     text-align: center;
@@ -261,7 +298,8 @@ const Jobs = () => {
                   role="tab"
                   tabIndex={activeTabId === i ? '0' : '-1'}
                   aria-selected={activeTabId === i ? true : false}
-                  aria-controls={`panel-${i}`}>
+                  aria-controls={`panel-${i}`}
+                >
                   <span>{company}</span>
                 </StyledTabButton>
               );
@@ -283,7 +321,8 @@ const Jobs = () => {
                     tabIndex={activeTabId === i ? '0' : '-1'}
                     aria-labelledby={`tab-${i}`}
                     aria-hidden={activeTabId !== i}
-                    hidden={activeTabId !== i}>
+                    hidden={activeTabId !== i}
+                  >
                     <h3>
                       <span>{title}</span>
                       <span className="company">
