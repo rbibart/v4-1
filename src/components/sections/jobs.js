@@ -44,9 +44,9 @@ const StyledTabButton = styled.button`
   ${({ theme }) => theme.mixins.link};
   display: flex;
   align-items: center;
-  width: max-content; /* Adjusted to match text width */
+  width: max-content; /* Lățimea se ajustează automat la conținut */
   height: var(--tab-height);
-  padding: 0 20px 2px; /* Adjust padding as necessary */
+  padding: 0 20px 2px; /* Ajustări de padding pentru aspect */
   border-left: 2px solid var(--lightest-navy);
   background-color: transparent;
   color: ${({ isActive }) => (isActive ? 'var(--green)' : 'var(--slate)')};
@@ -90,9 +90,9 @@ const StyledHighlight = styled.div`
     top: auto;
     bottom: 0;
     width: 100%;
-    max-width: var(--tab-width); /* Ensure this matches your expected width */
+    max-width: var(--tab-width); /* Asigură-te că aceasta se potrivește cu lățimea așteptată a filelor */
     height: 2px;
-    margin-left: 0; /* Adjust margin as necessary */
+    margin-left: 0; /* Ajustează marginile dacă este necesar */
     transform: translateX(calc(${({ activeTabId }) => activeTabId} * var(--tab-width)));
   }
 `;
@@ -179,20 +179,20 @@ const Jobs = () => {
       tabs.current[tabFocus].focus();
       return;
     }
-    // If we're at the end, go to the start
+    // Dacă suntem la sfârșit, mergem la început
     if (tabFocus >= tabs.current.length) {
       setTabFocus(0);
     }
-    // If we're at the start, move to the end
+    // Dacă suntem la început, mutăm la sfârșit
     if (tabFocus < 0) {
       setTabFocus(tabs.current.length - 1);
     }
   };
 
-  // Only re-run the effect if tabFocus changes
+  // Rulăm efectul doar dacă se schimbă tabFocus
   useEffect(() => focusTab(), [tabFocus]);
 
-  // Focus on tabs when using up & down arrow keys
+  // Focus pe file când se folosesc tastele săgeți sus și jos
   const onKeyDown = e => {
     switch (e.key) {
       case KEY_CODES.ARROW_UP: {
@@ -278,4 +278,4 @@ const Jobs = () => {
   );
 };
 
-export default Jobs
+export default Jobs;
