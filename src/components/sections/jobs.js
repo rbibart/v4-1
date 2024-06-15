@@ -1,40 +1,3 @@
-const StyledTabButton = styled.button`
-  ${({ theme }) => theme.mixins.link};
-  display: flex;
-  align-items: center;
-  height: var(--tab-height);
-  padding: 0 20px 2px; /* Am eliminat width-ul explicit */
-
-  /* Restul stilurilor rămân neschimbate */
-
-  @media (max-width: 600px) {
-    ${({ theme }) => theme.mixins.flexCenter};
-    min-width: auto; /* Înlăturăm min-width-ul */
-    padding: 0 15px; /* Ajustăm padding-ul pentru a se potrivi cu conținutul */
-    border-left: 0;
-    border-bottom: 2px solid var(--lightest-navy);
-    text-align: center;
-  }
-
-  &:hover,
-  &:focus {
-    background-color: var(--light-navy);
-  }
-`;
-Explicație:
-
-Am eliminat width: 100%; din StyledTabButton, deoarece dorim ca lățimea să fie determinată automat de conținutul textului.
-În media query pentru ecranele mai mici (max-width: 600px), am schimbat min-width: 120px; în min-width: auto; pentru a permite butoanelor să se extindă în funcție de conținut.
-Am ajustat padding-ul pentru a asigura că butoanele se extind suficient pentru textul din interior.
-Aceste modificări vor face ca butoanele să fie mai flexibile și să se adapteze în mod corespunzător la conținutul fiecărui tab, fără a se suprapune. Assigurati-va ca aveti grija de aspectul vizual al butoanelor in design-ul final al aplicatiei.
-
-da-mi tot codul
-
-ChatGPT
-Desigur! Îți voi oferi tot codul pentru componenta Jobs, inclusiv modificările aduse stilurilor StyledTabButton pentru a asigura că butoanele sunt exact cât textul și nu se suprapun.
-
-javascript
-Copy code
 import React, { useState, useEffect, useRef } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { CSSTransition } from 'react-transition-group';
@@ -54,7 +17,6 @@ const StyledJobsSection = styled.section`
       display: block;
     }
 
-    // Prevent container from jumping
     @media (min-width: 700px) {
       min-height: 340px;
     }
@@ -108,7 +70,7 @@ const StyledTabButton = styled.button`
   display: flex;
   align-items: center;
   height: var(--tab-height);
-  padding: 0 20px 2px; /* Am eliminat width-ul explicit */
+  padding: 0 20px 2px;
 
   background-color: transparent;
   color: ${({ isActive }) => (isActive ? 'var(--green)' : 'var(--slate)')};
@@ -123,8 +85,8 @@ const StyledTabButton = styled.button`
   }
   @media (max-width: 600px) {
     ${({ theme }) => theme.mixins.flexCenter};
-    min-width: auto; /* Înlăturăm min-width-ul */
-    padding: 0 15px; /* Ajustăm padding-ul pentru a se potrivi cu conținutul */
+    min-width: auto;
+    padding: 0 15px;
     border-left: 0;
     border-bottom: 2px solid var(--lightest-navy);
     text-align: center;
@@ -245,20 +207,16 @@ const Jobs = () => {
       tabs.current[tabFocus].focus();
       return;
     }
-    // If we're at the end, go to the start
     if (tabFocus >= tabs.current.length) {
       setTabFocus(0);
     }
-    // If we're at the start, move to the end
     if (tabFocus < 0) {
       setTabFocus(tabs.current.length - 1);
     }
   };
 
-  // Only re-run the effect if tabFocus changes
   useEffect(() => focusTab(), [tabFocus]);
 
-  // Focus on tabs when using up & down arrow keys
   const onKeyDown = e => {
     switch (e.key) {
       case KEY_CODES.ARROW_UP: {
