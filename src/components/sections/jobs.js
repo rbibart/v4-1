@@ -17,6 +17,7 @@ const StyledJobsSection = styled.section`
       display: block;
     }
 
+    // Prevent container from jumping
     @media (min-width: 700px) {
       min-height: 340px;
     }
@@ -44,29 +45,48 @@ const StyledTabList = styled.div`
     padding-left: 25px;
     margin-left: -25px;
   }
+
+  li {
+    &:first-of-type {
+      @media (max-width: 600px) {
+        margin-left: 50px;
+      }
+      @media (max-width: 480px) {
+        margin-left: 25px;
+      }
+    }
+    &:last-of-type {
+      @media (max-width: 600px) {
+        padding-right: 50px;
+      }
+      @media (max-width: 480px) {
+        padding-right: 25px;
+      }
+    }
+  }
 `;
 
 const StyledTabButton = styled.button`
   ${({ theme }) => theme.mixins.link};
   display: flex;
   align-items: center;
+  width: 100%;
   height: var(--tab-height);
   padding: 0 20px 2px;
+  border-left: 2px solid var(--lightest-navy);
   background-color: transparent;
   color: ${({ isActive }) => (isActive ? 'var(--green)' : 'var(--slate)')};
   font-family: var(--font-mono);
   font-size: var(--fz-xs);
   text-align: left;
   white-space: nowrap;
-  border-left: 2px solid var(--lightest-navy);
-  transition: z-index 0.25s ease-in-out;
 
   @media (max-width: 768px) {
     padding: 0 15px 2px;
   }
   @media (max-width: 600px) {
     ${({ theme }) => theme.mixins.flexCenter};
-    min-width: auto;
+    min-width: 120px;
     padding: 0 15px;
     border-left: 0;
     border-bottom: 2px solid var(--lightest-navy);
@@ -77,10 +97,6 @@ const StyledTabButton = styled.button`
   &:focus {
     background-color: var(--light-navy);
   }
-
-  ${({ isActive }) => isActive && `
-    z-index: 5; /* Asigură că butonul activ este în prim plan */
-  `}
 `;
 
 const StyledHighlight = styled.div`
@@ -190,19 +206,22 @@ const Jobs = () => {
   const focusTab = () => {
     if (tabs.current[tabFocus]) {
       tabs.current[tabFocus].focus();
-      scrollToSelectedTab(); 
       return;
     }
+    // If we're at the end, go to the start
     if (tabFocus >= tabs.current.length) {
       setTabFocus(0);
     }
+    // If we're at the start, move to the end
     if (tabFocus < 0) {
       setTabFocus(tabs.current.length - 1);
     }
   };
 
+  // Only re-run the effect if tabFocus changes
   useEffect(() => focusTab(), [tabFocus]);
 
+  // Focus on tabs when using up & down arrow keys
   const onKeyDown = e => {
     switch (e.key) {
       case KEY_CODES.ARROW_UP: {
@@ -220,12 +239,6 @@ const Jobs = () => {
       default: {
         break;
       }
-    }
-  };
-
-  const scrollToSelectedTab = () => {
-    if (tabs.current[activeTabId]) {
-      tabs.current[activeTabId].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
     }
   };
 
@@ -248,8 +261,8 @@ const Jobs = () => {
                   role="tab"
                   tabIndex={activeTabId === i ? '0' : '-1'}
                   aria-selected={activeTabId === i ? true : false}
-                  aria-controls={`panel-${i}`}
-                >
+                  aria-controls={`panel-${i}`}>
+                  className="latime"
                   <span>{company}</span>
                 </StyledTabButton>
               );
@@ -271,4 +284,28 @@ const Jobs = () => {
                     tabIndex={activeTabId === i ? '0' : '-1'}
                     aria-labelledby={`tab-${i}`}
                     aria-hidden={activeTabId !== i}
-                    hidden={activeTabId !==
+                    hidden={activeTabId !== i}>
+                    <h3>
+                      <span>{title}</span>
+                      <span className="company">
+                        &nbsp;@&nbsp;
+                        <a href={url} className="inline-link">
+                          {company}
+                        </a>
+                      </span>
+                    </h3>
+
+                    <p className="range">{range}</p>
+
+                    <div dangerouslySetInnerHTML={{ __html: html }} />
+                  </StyledTabPanel>
+                </CSSTransition>
+              );
+            })}
+        </StyledTabPanels>
+      </div>
+    </StyledJobsSection>
+  );
+};
+
+export default Jobs;
