@@ -6,6 +6,7 @@ import { srConfig } from '@config';
 import sr from '@utils/sr';
 import { Layout } from '@components';
 import { usePrefersReducedMotion } from '@hooks';
+import { graphql } from 'gatsby';
 
 const StyledTableContainer = styled.div`
   margin: 100px -20px;
@@ -110,28 +111,8 @@ const StyledTableContainer = styled.div`
   }
 `;
 
-const ArchivePage = ({ location }) => {
-  const newsItems = [
-    {
-      date: '2024-08-22',
-      title: 'Netgear Smart Switch Vulnerability Disclosed',
-      source: 'The Hacker News',
-      link: 'https://thehackernews.com/2024/08/netgear-smart-switch-vulnerability.html',
-    },
-    {
-      date: '2024-08-20',
-      title: 'Continuous Penetration Testing and DDoS Attack Surge',
-      source: 'The Hacker News',
-      link: 'https://thehackernews.com/2024/08/ddos-attacks-increase-by-46-in-first.html',
-    },
-    {
-      date: '2024-08-18',
-      title: 'Microsoft Patches Zero-Day Vulnerability Exploited by Lazarus Group',
-      source: 'The Hacker News',
-      link: 'https://thehackernews.com/2024/08/microsoft-patches-zero-day.html',
-    },
-  ];
-
+const ArchivePage = ({ location, data }) => {
+  const newsItems = data.allCybersecurityNews.nodes;
   const revealTitle = useRef(null);
   const revealTable = useRef(null);
   const revealNewsItems = useRef([]);
@@ -196,6 +177,24 @@ const ArchivePage = ({ location }) => {
 
 ArchivePage.propTypes = {
   location: PropTypes.object.isRequired,
+  data: PropTypes.shape({
+    allCybersecurityNews: PropTypes.shape({
+      nodes: PropTypes.arrayOf(PropTypes.object),
+    }),
+  }).isRequired,
 };
 
 export default ArchivePage;
+
+export const query = graphql`
+  {
+    allCybersecurityNews(sort: { fields: [date], order: DESC }) {
+      nodes {
+        date
+        title
+        source
+        link
+      }
+    }
+  }
+`;
