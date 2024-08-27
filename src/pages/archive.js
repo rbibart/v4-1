@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
@@ -6,7 +6,6 @@ import { srConfig } from '@config';
 import sr from '@utils/sr';
 import { Layout } from '@components';
 import { usePrefersReducedMotion } from '@hooks';
-import { graphql } from 'gatsby';
 
 const StyledTableContainer = styled.div`
   margin: 100px -20px;
@@ -111,8 +110,8 @@ const StyledTableContainer = styled.div`
   }
 `;
 
-const ArchivePage = ({ location, data }) => {
-  const newsItems = data.allCybersecurityNews.nodes;
+const ArchivePage = ({ location }) => {
+  const [newsItems, setNewsItems] = useState([]);
   const revealTitle = useRef(null);
   const revealTable = useRef(null);
   const revealNewsItems = useRef([]);
@@ -126,6 +125,29 @@ const ArchivePage = ({ location, data }) => {
     sr.reveal(revealTitle.current, srConfig());
     sr.reveal(revealTable.current, srConfig(200, 0));
     revealNewsItems.current.forEach((ref, i) => sr.reveal(ref, srConfig(i * 10)));
+  }, [prefersReducedMotion]);
+
+  useEffect(() => {
+    const fetchRSSFeed = async () => {
+      try {
+        const response = await fetch('https://feeds.feedburner.com/TheHackersNews');
+        const text = await response.text();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, 'text/xml');
+        const items = Array.from(xml.querySelectorAll('item'));
+        const newsData = items.map(item => ({
+          date: new Date(item.querySelector('pubDate').textContent).toLocaleDateString(),
+          title: item.querySelector('title').textContent,
+          source: 'The Hacker News',
+          link: item.querySelector('link').textContent,
+        }));
+        setNewsItems(newsData);
+      } catch (error) {
+        console.error('Failed to fetch RSS feed:', error);
+      }
+    };
+
+    fetchRSSFeed();
   }, []);
 
   return (
@@ -153,11 +175,8 @@ const ArchivePage = ({ location, data }) => {
                 newsItems.map((news, i) => (
                   <tr key={i} ref={el => (revealNewsItems.current[i] = el)}>
                     <td className="overline date">{news.date}</td>
-
                     <td className="title">{news.title}</td>
-
                     <td className="source hide-on-mobile">{news.source}</td>
-
                     <td className="links">
                       <div>
                         <a href={news.link} aria-label="External Link">
@@ -177,24 +196,6 @@ const ArchivePage = ({ location, data }) => {
 
 ArchivePage.propTypes = {
   location: PropTypes.object.isRequired,
-  data: PropTypes.shape({
-    allCybersecurityNews: PropTypes.shape({
-      nodes: PropTypes.arrayOf(PropTypes.object),
-    }),
-  }).isRequired,
 };
 
 export default ArchivePage;
-
-export const query = graphql`
-  {
-    allCybersecurityNews(sort: { fields: [date], order: DESC }) {
-      nodes {
-        date
-        title
-        source
-        link
-      }
-    }
-  }
-`;
