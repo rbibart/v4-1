@@ -113,15 +113,14 @@ const StyledTableContainer = styled.div`
 
 const ArchivePage = ({ location }) => {
   const [newsItems, setNewsItems] = useState([]);
+  const [error, setError] = useState(null);
   const revealTitle = useRef(null);
   const revealTable = useRef(null);
   const revealNewsItems = useRef([]);
   const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
-    }
+    if (prefersReducedMotion) return;
     sr.reveal(revealTitle.current, srConfig());
     sr.reveal(revealTable.current, srConfig(200, 0));
     revealNewsItems.current.forEach((ref, i) => sr.reveal(ref, srConfig(i * 10)));
@@ -131,8 +130,11 @@ const ArchivePage = ({ location }) => {
     const fetchRSSFeed = async () => {
       try {
         const response = await fetch('https://feeds.feedburner.com/TheHackersNews');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
         const text = await response.text();
-        console.log('RSS Feed Data:', text); // Debug raw feed data
+        console.log('Raw RSS Feed Data:', text); // Debug raw feed data
 
         const parser = new DOMParser();
         const xml = parser.parseFromString(text, 'text/xml');
@@ -142,16 +144,18 @@ const ArchivePage = ({ location }) => {
         console.log('Feed Items:', items); // Debug feed items
 
         const newsData = items.map(item => ({
-          date: new Date(item.querySelector('pubDate').textContent).toLocaleDateString(),
-          title: item.querySelector('title').textContent,
+          date: item.querySelector('pubDate') ? new Date(item.querySelector('pubDate').textContent).toLocaleDateString() : 'Unknown Date',
+          title: item.querySelector('title') ? item.querySelector('title').textContent : 'No Title',
           source: 'The Hacker News',
-          link: item.querySelector('link').textContent,
-        }));
+          link: item.querySelector('link') ? item.querySelector('link').textContent : '#',
+        })).filter(news => news.date && news.title && news.link); // Filter out invalid entries
+
         console.log('Formatted News Data:', newsData); // Debug formatted news data
 
         setNewsItems(newsData);
       } catch (error) {
         console.error('Failed to fetch RSS feed:', error);
+        setError('Failed to fetch news. Please try again later.');
       }
     };
 
@@ -161,13 +165,11 @@ const ArchivePage = ({ location }) => {
   return (
     <Layout location={location}>
       <Helmet title="Cybersecurity News" />
-
       <main>
         <header ref={revealTitle}>
           <h1 className="big-heading">Cybersecurity News</h1>
           <p className="subtitle">Recent news in the cybersecurity world</p>
         </header>
-
         <StyledTableContainer ref={revealTable}>
           <table>
             <thead>
@@ -179,7 +181,11 @@ const ArchivePage = ({ location }) => {
               </tr>
             </thead>
             <tbody>
-              {newsItems.length > 0 ? (
+              {error ? (
+                <tr>
+                  <td colSpan="4">{error}</td>
+                </tr>
+              ) : newsItems.length > 0 ? (
                 newsItems.map((news, i) => (
                   <tr key={i} ref={el => (revealNewsItems.current[i] = el)}>
                     <td className="overline date">{news.date}</td>
@@ -187,9 +193,7 @@ const ArchivePage = ({ location }) => {
                     <td className="source hide-on-mobile">{news.source}</td>
                     <td className="links">
                       <div>
-                        <a href={news.link} aria-label="External Link">
-                          Link
-                        </a>
+                        <a href={news.link} aria-label="External Link">Link</a>
                       </div>
                     </td>
                   </tr>
