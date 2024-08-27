@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
@@ -111,18 +111,7 @@ const StyledTableContainer = styled.div`
 `;
 
 const ArchivePage = ({ location }) => {
-  
-  const newsItems = [
- 
-    {
-      date: 'y',
-      title: 'y',
-      source: 'y',
-      link: 'y',
-    },
-
-  ];
-
+  const [newsItems, setNewsItems] = useState([]);
   const revealTitle = useRef(null);
   const revealTable = useRef(null);
   const revealNewsItems = useRef([]);
@@ -136,6 +125,19 @@ const ArchivePage = ({ location }) => {
     sr.reveal(revealTitle.current, srConfig());
     sr.reveal(revealTable.current, srConfig(200, 0));
     revealNewsItems.current.forEach((ref, i) => sr.reveal(ref, srConfig(i * 10)));
+  }, [prefersReducedMotion]);
+
+  useEffect(() => {
+    // Fetch data from the external URL
+    fetch('https://solitary-waterfall-b4b5.bibart-razvan.workers.dev/')
+      .then(response => response.json())
+      .then(data => {
+        // Assuming the fetched data is an array of news items
+        setNewsItems(data);
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+      });
   }, []);
 
   return (
@@ -163,11 +165,8 @@ const ArchivePage = ({ location }) => {
                 newsItems.map((news, i) => (
                   <tr key={i} ref={el => (revealNewsItems.current[i] = el)}>
                     <td className="overline date">{news.date}</td>
-
                     <td className="title">{news.title}</td>
-
                     <td className="source hide-on-mobile">{news.source}</td>
-
                     <td className="links">
                       <div>
                         <a href={news.link} aria-label="External Link">
