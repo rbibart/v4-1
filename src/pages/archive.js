@@ -14,7 +14,7 @@ const ArchivePage = ({ location }) => {
         </header>
         <div>
           <iframe
-            src="https://www.rss-to-html.com/rss-feed-url"
+            src="https://feeds.feedburner.com/TheHackersNews"
             style={{ width: '100%', height: '600px', border: 'none' }}
             title="RSS Feed"
             frameBorder="0"
