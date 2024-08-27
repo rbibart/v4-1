@@ -50,11 +50,6 @@ const StyledTableContainer = styled.div`
           padding-right: 10px;
         }
       }
-
-      svg {
-        width: 20px;
-        height: 20px;
-      }
     }
 
     tr {
@@ -185,7 +180,7 @@ const ArchivePage = ({ location }) => {
                     <td className="links">
                       <div>
                         <a href={news.link} aria-label="External Link">
-                          <Icon name="External" />
+                          Link
                         </a>
                       </div>
                     </td>
