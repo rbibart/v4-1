@@ -7,7 +7,6 @@ import sr from '@utils/sr';
 import { Layout } from '@components';
 import { usePrefersReducedMotion } from '@hooks';
 
-// Styled component for the table container
 const StyledTableContainer = styled.div`
   margin: 100px -20px;
   @media (max-width: 768px) {
@@ -109,11 +108,12 @@ const ArchivePage = ({ location }) => {
   }, [prefersReducedMotion]);
 
   useEffect(() => {
+    // CORS proxy URL
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
     const targetUrl = 'https://feeds.feedburner.com/TheHackersNews';
     const url = proxyUrl + targetUrl;
 
-    const fetchRSSFeed = async () => {
+    const fetchNews = async () => {
       try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -122,28 +122,28 @@ const ArchivePage = ({ location }) => {
         const text = await response.text();
         const parser = new DOMParser();
         const xml = parser.parseFromString(text, 'text/xml');
-        const items = Array.from(xml.querySelectorAll('item'));
+        const items = xml.querySelectorAll('item');
 
-        if (items.length === 0) {
+        const newsData = Array.from(items).map(item => ({
+          date: new Date(item.querySelector('pubDate').textContent).toLocaleDateString(),
+          title: item.querySelector('title').textContent,
+          source: item.querySelector('source')?.textContent || 'Unknown',
+          link: item.querySelector('link').textContent,
+        }));
+
+        if (newsData.length === 0) {
           setError('No news items available.');
           return;
         }
 
-        const newsData = items.map(item => ({
-          date: item.querySelector('pubDate') ? new Date(item.querySelector('pubDate').textContent).toLocaleDateString() : 'Unknown Date',
-          title: item.querySelector('title') ? item.querySelector('title').textContent : 'No Title',
-          source: 'The Hacker News',
-          link: item.querySelector('link') ? item.querySelector('link').textContent : '#',
-        }));
-
         setNewsItems(newsData);
       } catch (error) {
-        console.error('Failed to fetch RSS feed:', error);
+        console.error('Failed to fetch news:', error);
         setError('Failed to fetch news. Please try again later.');
       }
     };
 
-    fetchRSSFeed();
+    fetchNews();
   }, []);
 
   return (
