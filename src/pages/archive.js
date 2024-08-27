@@ -7,6 +7,7 @@ import sr from '@utils/sr';
 import { Layout } from '@components';
 import { usePrefersReducedMotion } from '@hooks';
 
+// Define your styled component
 const StyledTableContainer = styled.div`
   margin: 100px -20px;
 
@@ -121,7 +122,6 @@ const ArchivePage = ({ location }) => {
     if (prefersReducedMotion) {
       return;
     }
-
     sr.reveal(revealTitle.current, srConfig());
     sr.reveal(revealTable.current, srConfig(200, 0));
     revealNewsItems.current.forEach((ref, i) => sr.reveal(ref, srConfig(i * 10)));
@@ -132,15 +132,23 @@ const ArchivePage = ({ location }) => {
       try {
         const response = await fetch('https://feeds.feedburner.com/TheHackersNews');
         const text = await response.text();
+        console.log('RSS Feed Data:', text); // Debug raw feed data
+
         const parser = new DOMParser();
         const xml = parser.parseFromString(text, 'text/xml');
+        console.log('Parsed XML:', xml); // Debug parsed XML
+
         const items = Array.from(xml.querySelectorAll('item'));
+        console.log('Feed Items:', items); // Debug feed items
+
         const newsData = items.map(item => ({
           date: new Date(item.querySelector('pubDate').textContent).toLocaleDateString(),
           title: item.querySelector('title').textContent,
           source: 'The Hacker News',
           link: item.querySelector('link').textContent,
         }));
+        console.log('Formatted News Data:', newsData); // Debug formatted news data
+
         setNewsItems(newsData);
       } catch (error) {
         console.error('Failed to fetch RSS feed:', error);
@@ -171,7 +179,7 @@ const ArchivePage = ({ location }) => {
               </tr>
             </thead>
             <tbody>
-              {newsItems.length > 0 &&
+              {newsItems.length > 0 ? (
                 newsItems.map((news, i) => (
                   <tr key={i} ref={el => (revealNewsItems.current[i] = el)}>
                     <td className="overline date">{news.date}</td>
@@ -185,7 +193,12 @@ const ArchivePage = ({ location }) => {
                       </div>
                     </td>
                   </tr>
-                ))}
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4">No news items available.</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </StyledTableContainer>
