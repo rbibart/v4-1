@@ -6,6 +6,9 @@ import { srConfig } from '@config';
 import sr from '@utils/sr';
 import { Layout } from '@components';
 import { usePrefersReducedMotion } from '@hooks';
+import { FaWindows, FaLinux, FaDatabase, FaCloud, FaCode, FaServer, FaCheckCircle, FaBook, FaSchool, FaTasks, FaSitemap } from 'react-icons/fa';
+import { SiMicrosoft, SiAws, SiGooglecloud, SiPaloalto, SiJira, SiWordpress } from 'react-icons/si';
+import { DiPython, DiBash, DiPowerShell } from 'react-icons/di';
 
 const StyledResumeContainer = styled.div`
   margin: 100px 0;
@@ -109,6 +112,24 @@ const TimelineItem = styled.div`
   }
 `;
 
+const SkillsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: var(--fz-lg);
+
+  .skill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .icon {
+      font-size: 1.5rem;
+      color: var(--lightest-slate);
+    }
+  }
+`;
+
 const ResumePage = ({ location }) => {
   const revealTitle = useRef(null);
   const revealSections = useRef([]);
@@ -184,12 +205,60 @@ const ResumePage = ({ location }) => {
 
           <section ref={el => (revealSections.current[2] = el)} className="section">
             <h2>Skills</h2>
-            <ul>
-              <li>Experience managing AD, DNS, WSUS, Microsoft 365, Exchange, Antivirus Management (Gravity Zone), Azure, AWS, GCP, Splunk, Nessus, Intune, Paloalto.</li>
-              <li>Scripting knowledge: Bash, PowerShell, Python.</li>
-              <li>Virtualization technologies: Hyper V, VMware, Proxmox.</li>
-              <li>Web Applications, Cybersecurity, SQL, Jira administration, C#, WordPress.</li>
-            </ul>
+            <SkillsContainer>
+              <div className="skill">
+                <FaWindows className="icon" />
+                <span>Windows Server</span>
+              </div>
+              <div className="skill">
+                <FaLinux className="icon" />
+                <span>Linux</span>
+              </div>
+              <div className="skill">
+                <FaDatabase className="icon" />
+                <span>SQL</span>
+              </div>
+              <div className="skill">
+                <FaCloud className="icon" />
+                <span>Cloud (AWS, Azure, GCP)</span>
+              </div>
+              <div className="skill">
+                <DiPython className="icon" />
+                <span>Python</span>
+              </div>
+              <div className="skill">
+                <DiBash className="icon" />
+                <span>Bash</span>
+              </div>
+              <div className="skill">
+                <DiPowerShell className="icon" />
+                <span>PowerShell</span>
+              </div>
+              <div className="skill">
+                <SiMicrosoft className="icon" />
+                <span>Microsoft 365</span>
+              </div>
+              <div className="skill">
+                <SiAws className="icon" />
+                <span>AWS</span>
+              </div>
+              <div className="skill">
+                <SiGooglecloud className="icon" />
+                <span>GCP</span>
+              </div>
+              <div className="skill">
+                <SiPaloalto className="icon" />
+                <span>Palo Alto</span>
+              </div>
+              <div className="skill">
+                <SiJira className="icon" />
+                <span>Jira</span>
+              </div>
+              <div className="skill">
+                <SiWordpress className="icon" />
+                <span>WordPress</span>
+              </div>
+            </SkillsContainer>
           </section>
         </StyledResumeContainer>
       </main>
