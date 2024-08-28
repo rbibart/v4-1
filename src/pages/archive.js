@@ -58,6 +58,17 @@ const StyledStoryContainer = styled.div`
   }
 `;
 
+const InfoDiv = styled.div`
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+`;
+
 const StoryPage = ({ location }) => {
   const revealTitle = useRef(null);
   const revealSections = useRef([]);
@@ -77,6 +88,11 @@ const StoryPage = ({ location }) => {
       <Helmet title="ZEN STORY - Story" />
 
       <main>
+        {/* Informative Div */}
+        <InfoDiv>
+          <p><strong>Note:</strong> This story is a work of fiction, created with the assistance of AI based on the content from this site.</p>
+        </InfoDiv>
+
         <header ref={revealTitle}>
           <h1 className="big-heading">Zen Story</h1>
           <p className="subtitle">A tale of cyber resilience and expertise</p>
@@ -92,7 +108,7 @@ const StoryPage = ({ location }) => {
           </section>
 
           <section ref={el => (revealSections.current[0] = el)} className="section">
-            <h2>The Attack on VortexTech Enterprises</h2>
+            <h2>Cyberia's Last Stand: How Zen Outmaneuvered a Ruthless Cyber Attack</h2>
             <div className="story-content">
               <p>
                 On an otherwise ordinary morning in the vibrant city of Cyberia, a global hub for technological innovation and digital advancement, VortexTech Enterprises, one of the most prestigious technology companies, was struck by an unusually severe cyber attack. Cyberia was known for its futuristic urban landscape, with glass skyscrapers and a public transport network that seemed to float between buildings, but also for its clusters of cutting-edge technology companies fueling the world’s digital progress.
