@@ -6,7 +6,7 @@ import { srConfig } from '@config';
 import sr from '@utils/sr';
 import { Layout } from '@components';
 import { usePrefersReducedMotion } from '@hooks';
-import videoSrc from '../videos/cyberia.mp4'; // Import the video
+import videoSrc from '../videos/cyberia.mp4';
 
 const StyledStoryContainer = styled.div`
   margin: 100px 0;
@@ -104,7 +104,7 @@ const StoryPage = ({ location }) => {
           {/* Informational Banner */}
           <section>
             <InfoDiv>
-              <p><strong>Note:</strong> This story is fictional and generated using AI based on cybersecurity skills. Any resemblance to real events or persons is purely coincidental.</p>
+              <p><strong>Note:</strong> This story is a work of fiction, created with the assistance of AI based on the content from this site.</p>
             </InfoDiv>
           </section>
           <section ref={el => (revealSections.current[0] = el)} className="section">
