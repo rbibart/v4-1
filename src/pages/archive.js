@@ -88,11 +88,6 @@ const StoryPage = ({ location }) => {
       <Helmet title="ZEN STORY - Story" />
 
       <main>
-        {/* Informative Div */}
-        <InfoDiv>
-          <p><strong>Note:</strong> This story is a work of fiction, created with the assistance of AI based on the content from this site.</p>
-        </InfoDiv>
-
         <header ref={revealTitle}>
           <h1 className="big-heading">Zen Story</h1>
           <p className="subtitle">A tale of cyber resilience and expertise</p>
@@ -106,7 +101,12 @@ const StoryPage = ({ location }) => {
               Your browser does not support the video tag.
             </video>
           </section>
-
+          {/* Informational Banner */}
+          <section>
+            <InfoDiv>
+              <p><strong>Note:</strong> This story is fictional and generated using AI based on cybersecurity skills. Any resemblance to real events or persons is purely coincidental.</p>
+            </InfoDiv>
+          </section>
           <section ref={el => (revealSections.current[0] = el)} className="section">
             <h2>Cyberia's Last Stand: How Zen Outmaneuvered a Ruthless Cyber Attack</h2>
             <div className="story-content">
