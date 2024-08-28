@@ -7,7 +7,7 @@ import sr from '@utils/sr';
 import { Layout } from '@components';
 import { usePrefersReducedMotion } from '@hooks';
 
-const StyledResumeContainer = styled.div`
+const StyledStoryContainer = styled.div`
   margin: 100px 0;
   line-height: 1.5;
 
@@ -35,83 +35,23 @@ const StyledResumeContainer = styled.div`
   .title {
     font-weight: 600;
   }
-`;
 
-const Timeline = styled.div`
-  position: relative;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px 0;
-
-  &::before {
-    content: '';
-    position: absolute;
-    width: 6px;
-    background-color: var(--lightest-slate);
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    margin-left: -3px;
-  }
-`;
-
-const TimelineItem = styled.div`
-  padding: 10px 40px;
-  position: relative;
-  background-color: inherit;
-  width: 50%;
-
-  &:nth-child(odd) {
-    left: 0;
-  }
-
-  &:nth-child(even) {
-    left: 50%;
-  }
-
-  &::before {
-    content: ' ';
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    right: -17px;
-    background-color: var(--lightest-slate);
-    border: 4px solid var(--navy);
-    top: 15px;
-    border-radius: 50%;
-    z-index: 1;
-  }
-
-  &:nth-child(even)::before {
-    left: -16px;
-  }
-
-  .content {
-    padding: 20px;
-    background-color: var(--light-navy);
-    position: relative;
-    border-radius: var(--border-radius);
-  }
-
-  time {
-    font-size: var(--fz-sm);
-    color: var(--slate);
-    display: block;
-    margin-bottom: 10px;
-  }
-
-  h3 {
-    margin-top: 0;
-    font-size: var(--fz-lg);
-  }
-
-  p {
-    margin-bottom: 0;
+  .story-content {
     font-size: var(--fz-md);
+    line-height: 1.6;
+  }
+
+  .story-content h3 {
+    font-size: var(--fz-lg);
+    margin-top: 20px;
+  }
+
+  .story-content p {
+    margin-bottom: 15px;
   }
 `;
 
-const ResumePage = ({ location }) => {
+const StoryPage = ({ location }) => {
   const revealTitle = useRef(null);
   const revealSections = useRef([]);
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -127,128 +67,55 @@ const ResumePage = ({ location }) => {
 
   return (
     <Layout location={location}>
-      <Helmet title="Resume - Razvan Bibart" />
+      <Helmet title="ZEN STORY - Story - Razvan Bibart" />
 
       <main>
         <header ref={revealTitle}>
-          <h1 className="big-heading">Resume</h1>
-          <p className="subtitle">Razvan Bibart's professional experience and skills</p>
+          <h1 className="big-heading">Zen Story</h1>
+          <p className="subtitle">A tale of cyber resilience and expertise</p>
         </header>
 
-        <StyledResumeContainer>
+        <StyledStoryContainer>
           <section ref={el => (revealSections.current[0] = el)} className="section">
-            <h2>Personal Information</h2>
-            <p><span className="title">Name:</span> BIBARȚ RĂZVAN IOAN</p>
-            <p><span className="title">Location:</span> Arad</p>
-            <p><span className="title">Website:</span> <a href="https://razvanbibart.com">razvanbibart.com</a></p>
-            <p><span className="title">Email:</span> rbibart@razvanbibart.com</p>
-          </section>
-
-          <section ref={el => (revealSections.current[1] = el)} className="section">
-            <h2>Experience Timeline</h2>
-            <Timeline>
-              <TimelineItem>
-                <div className="content">
-                  <h3>Information Security Engineer</h3>
-                  <p>Bitdefender</p>
-                  <time>January 2021 - Present</time>
-                  <p>• Perform vulnerability assessment and penetration testing on network, systems, and applications.</p>
-                  <p>• Automate penetration tests and other security checks on network, systems, and applications.</p>
-                  <p>• Monitor and analyze security events from multiple sources including SIEM tools, IDS, firewall logs, and system logs.</p>
-                  <p>• Collaborate with technical teams for issue resolution and mitigation.</p>
-                  <p>• Develop automation and information security scripts.</p>
-                  <p>• Document actions for audit, regulatory, and legal purposes.</p>
-                  <p>• Administer Antivirus & Malware protection applications and write security assessment reports.</p>
-                </div>
-              </TimelineItem>
-
-              <TimelineItem>
-                <div className="content">
-                  <h3>System Administrator</h3>
-                  <p>Bitdefender</p>
-                  <time>September 2019 - January 2021</time>
-                  <p>• Provided system administration services for Windows and Linux infrastructure and development systems.</p>
-                  <p>• Ensured systems were maintained, updated, and properly configured.</p>
-                  <p>• Troubleshot hardware, software, and networking issues.</p>
-                  <p>• Performed specific failure recovery procedures and provided technical support for internal users.</p>
-                  <p>• Updated operational procedures and provided weekly status reports.</p>
-                </div>
-              </TimelineItem>
-
-              <TimelineItem>
-                <div className="content">
-                  <h3>Information Technology System Engineer</h3>
-                  <p>Elettrosud Group</p>
-                  <time>2015 - 2019</time>
-                  <p>• Managed installation, configuration, and maintenance of systems, software, hardware, and networks.</p>
-                  <p>• Responsible for Gamma Enterprise and provided training for ERP systems.</p>
-                  <p>• Automated Infrastructure and Platform administration tasks using scripts and tools.</p>
-                  <p>• Provided training and support to end-users on computer operations and policies.</p>
-                  <p>• Designed, installed, and configured servers, network devices, and firewalls.</p>
-                </div>
-              </TimelineItem>
-
-              <TimelineItem>
-                <div className="content">
-                  <h3>IT Teacher</h3>
-                  <p>Liceul Teoretic Pancota</p>
-                  <time>2009 - 2014</time>
-                  <p>• Taught informatics courses.</p>
-                </div>
-              </TimelineItem>
-            </Timeline>
-          </section>
-
-          <section ref={el => (revealSections.current[2] = el)} className="section">
-            <h2>Education</h2>
-            <h3>University „Aurel Vlaicu” Arad</h3>
-            <p className="title">Master's degree, Informatics (2012 - 2014)</p>
-            <p className="title">Bachelor's degree, Informatics (2009 - 2012)</p>
-          </section>
-
-          <section ref={el => (revealSections.current[3] = el)} className="section">
-            <h2>Skills</h2>
-            <div>
-              <h3>Technical Skills</h3>
-              <ul>
-                <li>Managing AD, DNS, WSUS, Microsoft 365, Exchange</li>
-                <li>Antivirus Management (Gravity Zone), Azure, AWS, GCP</li>
-                <li>Splunk, Nessus, Intune, Paloalto</li>
-              </ul>
-            </div>
-            <div>
-              <h3>Scripting & Automation</h3>
-              <ul>
-                <li>Bash, PowerShell, Python</li>
-                <li>Automation of Infrastructure and Platform tasks</li>
-              </ul>
-            </div>
-            <div>
-              <h3>Virtualization & Cloud Technologies</h3>
-              <ul>
-                <li>Hyper-V, VMware, Proxmox</li>
-                <li>Web Applications</li>
-              </ul>
-            </div>
-            <div>
-              <h3>Additional Skills</h3>
-              <ul>
-                <li>Cybersecurity</li>
-                <li>SQL</li>
-                <li>Jira administration</li>
-                <li>C#</li>
-                <li>WordPress</li>
-              </ul>
+            <h2>The Attack on VortexTech Enterprises</h2>
+            <div className="story-content">
+              <p>
+                On an otherwise ordinary morning in the vibrant city of Cyberia, a global hub for technological innovation and digital advancement, VortexTech Enterprises, one of the most prestigious technology companies, was struck by an unusually severe cyber attack. Cyberia was known for its futuristic urban landscape, with glass skyscrapers and a public transport network that seemed to float between buildings, but also for its clusters of cutting-edge technology companies fueling the world’s digital progress.
+              </p>
+              <p>
+                VortexTech Enterprises, located in one of the city’s most modern neighborhoods, was renowned for its innovations in software and hardware, being a leader in artificial intelligence and cybersecurity. Its offices were equipped with the latest technologies and offered a dynamic and creative working atmosphere. However, one morning, what seemed like an ordinary day for the VortexTech employees turned into a cyber nightmare.
+              </p>
+              <p>
+                Ransomware began encrypting the company’s essential data, and the breach in the network threatened to cause digital chaos throughout VortexTech's system. The management, aware of the gravity of the situation and the potential impact on the entire digital ecosystem of the city, decided that a specialist with exceptional expertise and remarkable crisis resolution ability needed to intervene. Thus, they called Zen, a cybersecurity engineer known for his efficiency and reputation as a savior in the face of cyber threats.
+              </p>
+              <p>
+                Zen arrived at the office wearing a shirt that read "No hacker gets through!" and carrying a backpack full of advanced equipment that could rival the most sophisticated gadgets from a sci-fi film. The atmosphere in the office was electrifying and panicked, but Zen maintained a professional calm, knowing that every minute counted.
+              </p>
+              <p>
+                The first thing he did was examine the network traffic and logs using state-of-the-art tools. With the help of these sophisticated tools, Zen quickly identified that the attackers were exploiting a vulnerability in the DNS system, using a complex technique that seemed to be inspired by a futuristic scenario. He reconfigured the firewalls to block suspicious traffic and strengthened network protection, creating a security barrier reminiscent of a “virtual shield,” providing an extra layer of protection.
+              </p>
+              <p>
+                Next, Zen updated the IDS/IPS system rules, ensuring they now had an “attack radar” capable of detecting and responding rapidly to any unusual activity. He implemented network segmentation solutions to isolate compromised parts and prevent the spread of the ransomware, similar to how an emergency crew would isolate damaged parts of a spacecraft.
+              </p>
+              <p>
+                Simultaneously, Zen enhanced authentication measures, introducing security protocols that would impress any security specialist. He reviewed access policies and created a multi-factor authentication system that significantly reinforced the company’s access barriers, making it nearly impossible for attackers to gain further entry.
+              </p>
+              <p>
+                Throughout the crisis, Zen communicated effectively with the IT teams and management, using a clear and concise update system that kept team morale high. “We’re handling this like a crew repairing a ship in the midst of a stellar storm,” he said, bringing a smile to his colleagues’ faces and refreshing the tense atmosphere.
+              </p>
+              <p>
+                Thanks to his critical thinking skills and deep knowledge of threats, Zen managed to limit the impact of the attack and fully restore VortexTech’s systems. The company avoided significant losses and strengthened its security measures, turning the crisis into an opportunity to bolster its systems. Zen demonstrated that, regardless of the complexity of challenges, through deep knowledge and unwavering dedication, any situation can be navigated and successfully overcome.
+              </p>
             </div>
           </section>
-        </StyledResumeContainer>
+        </StyledStoryContainer>
       </main>
     </Layout>
   );
 };
 
-ResumePage.propTypes = {
+StoryPage.propTypes = {
   location: PropTypes.object.isRequired,
 };
 
-export default ResumePage;
+export default StoryPage;
