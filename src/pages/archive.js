@@ -50,22 +50,10 @@ const StyledStoryContainer = styled.div`
     margin-bottom: 15px;
   }
 
-  .video-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-    background: #000;
+  video {
+    width: 100%;
+    height: auto;
     margin-bottom: 50px;
-    
-    iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
   }
 `;
 
@@ -85,7 +73,7 @@ const StoryPage = ({ location }) => {
 
   return (
     <Layout location={location}>
-      <Helmet title="ZEN STORY - Story - Razvan Bibart" />
+      <Helmet title="ZEN STORY - Story" />
 
       <main>
         <header ref={revealTitle}>
@@ -94,15 +82,12 @@ const StoryPage = ({ location }) => {
         </header>
 
         <StyledStoryContainer>
-          {/* Embedded YouTube Video */}
-          <section className="video-container">
-            <iframe 
-              src="https://youtu.be/ND_DzUGhU5A" 
-              title="YouTube video player" 
-              frameBorder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowFullScreen>
-            </iframe>
+          {/* Video Section */}
+          <section>
+            <video controls>
+              <source src="/cyberia.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </section>
 
           <section ref={el => (revealSections.current[0] = el)} className="section">
