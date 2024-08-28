@@ -35,15 +35,77 @@ const StyledResumeContainer = styled.div`
   .title {
     font-weight: 600;
   }
+`;
 
-  ul {
-    margin: 0 0 30px 20px;
-    list-style-type: square;
+const Timeline = styled.div`
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
 
-    li {
-      margin-bottom: 10px;
-      font-size: var(--fz-lg);
-    }
+  &::before {
+    content: '';
+    position: absolute;
+    width: 6px;
+    background-color: var(--lightest-slate);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+  }
+`;
+
+const TimelineItem = styled.div`
+  padding: 10px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+
+  &:nth-child(odd) {
+    left: 0;
+  }
+
+  &:nth-child(even) {
+    left: 50%;
+  }
+
+  &::before {
+    content: ' ';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: -17px;
+    background-color: var(--lightest-slate);
+    border: 4px solid var(--navy);
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+  }
+
+  &:nth-child(even)::before {
+    left: -16px;
+  }
+
+  .content {
+    padding: 20px;
+    background-color: var(--light-navy);
+    position: relative;
+    border-radius: var(--border-radius);
+  }
+
+  h3 {
+    margin-top: 0;
+    font-size: var(--fz-lg);
+  }
+
+  p {
+    margin-bottom: 0;
+    font-size: var(--fz-md);
+  }
+
+  time {
+    font-size: var(--fz-sm);
+    color: var(--slate);
   }
 `;
 
@@ -73,65 +135,54 @@ const ResumePage = ({ location }) => {
 
         <StyledResumeContainer>
           <section ref={el => (revealSections.current[0] = el)} className="section">
-            <h2>Personal Information</h2>
-            <p><span className="title">Name:</span> BIBARȚ RĂZVAN IOAN</p>
-            <p><span className="title">Location:</span> Arad</p>
-            <p><span className="title">Website:</span> <a href="https://razvanbibart.com">razvanbibart.com</a></p>
-            <p><span className="title">Email:</span> rbibart@razvanbibart.com</p>
+            <h2>Experience Timeline</h2>
+            <Timeline>
+              <TimelineItem>
+                <div className="content">
+                  <h3>Information Security Engineer</h3>
+                  <p>Bitdefender</p>
+                  <time>January 2021 - Present</time>
+                  <p>Perform vulnerability assessment, penetration testing, and security monitoring.</p>
+                </div>
+              </TimelineItem>
+
+              <TimelineItem>
+                <div className="content">
+                  <h3>System Administrator</h3>
+                  <p>Bitdefender</p>
+                  <time>September 2019 - January 2021</time>
+                  <p>Provided system administration services for Windows and Linux infrastructure.</p>
+                </div>
+              </TimelineItem>
+
+              <TimelineItem>
+                <div className="content">
+                  <h3>Information Technology System Engineer</h3>
+                  <p>Elettrosud Group</p>
+                  <time>2015 - 2019</time>
+                  <p>Maintained systems, software, hardware, and networks, providing support and training.</p>
+                </div>
+              </TimelineItem>
+
+              <TimelineItem>
+                <div className="content">
+                  <h3>IT Teacher</h3>
+                  <p>Liceul Teoretic Pancota</p>
+                  <time>2009 - 2014</time>
+                  <p>Taught informatics courses.</p>
+                </div>
+              </TimelineItem>
+            </Timeline>
           </section>
 
           <section ref={el => (revealSections.current[1] = el)} className="section">
-            <h2>Experience</h2>
-
-            <h3>Bitdefender - Information Security Engineer</h3>
-            <p className="title">January 2021 - Present</p>
-            <ul>
-              <li>Perform vulnerability assessment and conduct penetration testing on network, systems, and applications.</li>
-              <li>Involved in vulnerability assessment tasks; creating vulnerability assessment reports, reviewing scan reports (Nessus), and creating tickets for fixing vulnerabilities.</li>
-              <li>Automate penetration tests and other security checks on network, systems, and applications.</li>
-              <li>Monitor and analyze security events from multiple sources including SIEM tools, network and host-based IDS, firewall logs, and system logs.</li>
-              <li>Collaborate with Operations Engineers and technical teams for issue resolution and mitigation.</li>
-              <li>Develop automation and information security scripts.</li>
-              <li>Document actions taken for audit, regulatory, and legal purposes.</li>
-              <li>Administer Antivirus & Malware protection applications.</li>
-              <li>Write security assessment reports and contribute to ongoing projects.</li>
-            </ul>
-
-            <h3>Bitdefender – System Administrator</h3>
-            <p className="title">September 2019 - January 2021</p>
-            <ul>
-              <li>Provided system administration services for Windows and Linux infrastructure and development systems.</li>
-              <li>Ensured systems were kept in the required configuration profile, including maintenance and software updates.</li>
-              <li>Troubleshooted hardware, software, and networking issues on Windows and Linux systems.</li>
-              <li>Performed failure recovery procedures for managed systems and applications.</li>
-              <li>Provided technical support for internal users and updated operational procedures.</li>
-            </ul>
-
-            <h3>Elettrosud Group – Information Technology System Engineer</h3>
-            <p className="title">2015 - 2019</p>
-            <ul>
-              <li>Installed, configured, maintained, and ensured reliable operation of systems, software, hardware, and networks.</li>
-              <li>Responsible for Gamma Enterprise and provided training for ERP systems.</li>
-              <li>Automated common Infrastructure and Platform administration tasks using scripts and tools.</li>
-              <li>Provided training, guidance, and support to end-users on computer operations.</li>
-              <li>Designed, installed, and configured servers, network devices, and firewalls.</li>
-            </ul>
-
-            <h3>Liceul Teoretic Pancota – IT Teacher</h3>
-            <p className="title">2009 - 2014</p>
-            <ul>
-              <li>Taught informatics courses.</li>
-            </ul>
-          </section>
-
-          <section ref={el => (revealSections.current[2] = el)} className="section">
             <h2>Education</h2>
             <h3>University „Aurel Vlaicu” Arad</h3>
             <p className="title">Master's degree, Informatics (2012 - 2014)</p>
             <p className="title">Bachelor's degree, Informatics (2009 - 2012)</p>
           </section>
 
-          <section ref={el => (revealSections.current[3] = el)} className="section">
+          <section ref={el => (revealSections.current[2] = el)} className="section">
             <h2>Skills</h2>
             <ul>
               <li>Experience managing AD, DNS, WSUS, Microsoft 365, Exchange, Antivirus Management (Gravity Zone), Azure, AWS, GCP, Splunk, Nessus, Intune, Paloalto.</li>
