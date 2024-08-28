@@ -85,7 +85,7 @@ const StoryPage = ({ location }) => {
           {/* Video Section */}
           <section>
             <video controls>
-              <source src="/cyberia.mp4" type="video/mp4" />
+              <source src="../../images/cyberia.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </section>
