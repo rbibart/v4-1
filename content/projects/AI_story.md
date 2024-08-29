@@ -2,7 +2,7 @@
 date: '2024-08-28'
 title: 'A tale of cyber resilience and expertise'
 github: ''
-external: 'https://razvanbibart.com/ai'
+external: 'https://razvanbibart.com/story'
 tech:
   - Artificial Inteligence
 company: 'RBI'
