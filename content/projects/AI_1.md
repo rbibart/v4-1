@@ -9,4 +9,4 @@ company: 'RBI'
 showInProjects: true
 ---
 
-A story created with the assistance of AI based on the content from this site..
+A story created with the assistance of AI based on the content from this site.
