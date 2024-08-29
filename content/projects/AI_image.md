@@ -2,7 +2,7 @@
 date: '2024-08-29'
 title: 'Text-to-Image'
 github: ''
-external: 'https://razvanbibart.com/ai-image'
+external: 'https://ai.razvanbibart.com'
 tech:
   - Artificial Inteligence
 company: 'RBI'
