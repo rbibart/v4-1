@@ -15,8 +15,21 @@ module.exports = {
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-sitemap`,
-    `gatsby-plugin-robots-txt`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      options: {
+        output: `/sitemap`,
+        excludes: [`/offline-plugin-app-shell-fallback/`, `/dev-404-page/`, `/404/`, `/404.html`],
+      }
+    },
+    {
+      resolve: `gatsby-plugin-robots-txt`,
+      options: {
+        host: 'https://razvanbibart.com',
+        sitemap: 'https://razvanbibart.com/sitemap/sitemap-index.xml',
+        policy: [{ userAgent: '*', allow: '/' }]
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
