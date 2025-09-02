@@ -1,0 +1,18 @@
+[build]
+  # Gatsby build command
+  command = "npm run build"
+  publish = "public/"
+
+# Node.js version configuration (should match .nvmrc)
+[build.environment]
+  NODE_VERSION = "20.18.1"
+
+# Ensure all deployment contexts use the same Node version
+[context.production.environment]
+  NODE_VERSION = "20.18.1"
+
+[context.deploy-preview.environment]
+  NODE_VERSION = "20.18.1"
+
+[context.branch-deploy.environment]
+  NODE_VERSION = "20.18.1"
