@@ -44,17 +44,17 @@ module.exports = {
               changefreq = 'weekly';
             }
             // Important pages
-            else if (path.match(/^\/(about|projects|archive)\/$/)) {
+            else if (path === '/about/' || path === '/projects/' || path === '/archive/') {
               priority = 0.9;
               changefreq = 'weekly';
             }
             // Blog posts and individual projects
-            else if (path.match(/^\/(projects)\/[^/]+\/$/)) {
+            else if (path.startsWith('/projects/') && path !== '/projects/') {
               priority = 0.8;
               changefreq = 'monthly';
             }
             // Job pages
-            else if (path.match(/^\/jobs\/[^/]+\/$/)) {
+            else if (path.startsWith('/jobs/')) {
               priority = 0.6;
               changefreq = 'monthly';
             }
