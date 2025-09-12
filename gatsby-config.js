@@ -20,6 +20,11 @@ module.exports = {
         output: `/sitemap.xml`, 
         query: `
           {
+            site {
+              siteMetadata {
+                siteUrl
+              }
+            }
             allSitePage {
               nodes {
                 path
