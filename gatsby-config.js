@@ -86,7 +86,7 @@ module.exports = {
           allow: '/',
           disallow: ['/__gatsby/', '/page-data/', '/static/']
         }],
-        sitemap: 'https://razvanbibart.com/sitemap.xml',
+        sitemap: 'https://razvanbibart.com/sitemap/sitemap-0.xml',
       
       },
     },

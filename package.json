@@ -13,8 +13,7 @@
   "license": "MIT",
   "browserslist": "> 0.25%, not dead",
   "scripts": {
-    "build": "gatsby build && npm run postbuild",
-    "postbuild": "mv public/sitemap.xml/sitemap-0.xml /opt/public/sitemap.xml && rm -rf public/sitemap.xml",
+    "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
