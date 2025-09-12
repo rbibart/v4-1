@@ -1,6 +1,11 @@
 const config = require('./src/config');
 
 module.exports = {
+  // Disable all internal caching for Cloudflare deployment
+  flags: {
+    PRESERVE_FILE_DOWNLOAD_CACHE: false,
+    PRESERVE_WEBPACK_CACHE: false,
+  },
   siteMetadata: {
     title: 'Răzvan Bibarț',
     description: 'Răzvan Bibarț is a security engineer',

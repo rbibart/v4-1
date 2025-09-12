@@ -1,4 +1,4 @@
-# Cloudflare Pages configuration
+# Cloudflare Pages configuration - NO CACHE
 [build]
   command = "npm run build:cf"
   publish = "public"
@@ -6,9 +6,11 @@
 [build.environment]
   NODE_VERSION = "20"
   NPM_FLAGS = "--production=false"
-  # Disable problematic caching
+  # Disable ALL caching
+  GATSBY_CACHE = "false"
   GATSBY_DISABLE_CACHING = "true"
-  # Skip cache directory creation
-  CI = "true"
+  CI_CACHE_DISABLED = "true"
+  NO_CACHE = "true"
+  SKIP_CACHE = "true"
   # Memory optimization
   NODE_OPTIONS = "--max_old_space_size=4096"
