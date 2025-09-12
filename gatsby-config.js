@@ -17,16 +17,70 @@ module.exports = {
     {
       resolve: `gatsby-plugin-sitemap`,
       options: {
-        output: `/sitemap.xml`,
-        entryLimit: 45000,
-        excludes: [`/dev-404-page/`, `/404/`, `/404.html`, `/offline-plugin-app-shell-fallback/`],
-        createLinkInHead: true,
+        output: `/sitemap.xml`, 
+        query: `
+          {
+            allSitePage {
+              nodes {
+                path
+              }
+            }
+          }
+        `,
+        resolvePages: ({ allSitePage: { nodes } }) => {
+          return nodes.map(node => {
+            const path = node.path;
+            let priority = 0.5; // default priority
+            let changefreq = 'monthly';
+
+            // Homepage - highest priority
+            if (path === '/') {
+              priority = 1.0;
+              changefreq = 'weekly';
+            }
+            // Important pages
+            else if (path.match(/^\/(about|projects|archive)\/$/)) {
+              priority = 0.9;
+              changefreq = 'weekly';
+            }
+            // Blog posts and individual projects
+            else if (path.match(/^\/(projects)\/[^/]+\/$/)) {
+              priority = 0.8;
+              changefreq = 'monthly';
+            }
+            // Job pages
+            else if (path.match(/^\/jobs\/[^/]+\/$/)) {
+              priority = 0.6;
+              changefreq = 'monthly';
+            }
+            // Other pages
+            else {
+              priority = 0.5;
+              changefreq = 'yearly';
+            }
+
+            return {
+              path,
+              priority,
+              changefreq,
+            };
+          });
+        },
+        serialize: ({ path, priority, changefreq }) => ({
+          url: `https://razvanbibart.com${path}`,
+          changefreq,
+          priority,
+        }),
       },
     },
     {
       resolve: `gatsby-plugin-robots-txt`,
       options: {
-        policy: [{ userAgent: '*', allow: '/' }],
+        policy: [{ 
+          userAgent: '*', 
+          allow: '/',
+          disallow: ['/__gatsby/', '/page-data/', '/static/']
+        }],
         sitemap: 'https://razvanbibart.com/sitemap.xml',
         host: 'https://razvanbibart.com',
       },
