@@ -23,14 +23,14 @@ module.exports = {
         createLinkInHead: true,
       },
     },
-    {
-      resolve: `gatsby-plugin-robots-txt`,
-      options: {
-        policy: [{ userAgent: '*', allow: '/' }],
-        sitemap: 'https://razvanbibart.com/sitemap.xml',
-        host: 'https://razvanbibart.com',
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-robots-txt`,
+    //   options: {
+    //     policy: [{ userAgent: '*', allow: '/' }],
+    //     sitemap: 'https://razvanbibart.com/sitemap.xml',
+    //     host: 'https://razvanbibart.com',
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -43,7 +43,7 @@ module.exports = {
         icon: 'src/images/logo.png',
       },
     },
-    `gatsby-plugin-offline`,
+
     {
       resolve: `gatsby-source-filesystem`,
       options: { name: `images`, path: `${__dirname}/src/images` },
