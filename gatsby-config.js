@@ -17,7 +17,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-sitemap`,
       options: {
-        output: `/sitemap.xml`, 
+        output: `/`, 
         query: `
           {
             site {
@@ -81,13 +81,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-robots-txt`,
       options: {
+        host: null,
         policy: [{ 
           userAgent: '*', 
           allow: '/',
           disallow: ['/__gatsby/', '/page-data/', '/static/']
         }],
-        sitemap: 'https://razvanbibart.com/sitemap/sitemap-0.xml',
-      
+        sitemap: 'https://razvanbibart.com/sitemap-index.xml',
       },
     },
     {
