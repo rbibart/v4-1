@@ -13,8 +13,8 @@
   "license": "MIT",
   "browserslist": "> 0.25%, not dead",
   "scripts": {
-    "build": "gatsby build",
-    "build:cf": "gatsby build",
+    "build": "gatsby build && node scripts/fix-sitemap.js",
+    "build:cf": "gatsby build && node scripts/fix-sitemap.js",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
