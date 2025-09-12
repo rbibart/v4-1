@@ -1,13 +1,14 @@
-# Cloudflare Pages configuration (renamed from netlify.toml)
+# Cloudflare Pages configuration
 [build]
-  command = "npm run build"
-  publish = "public/"
+  command = "npm run build:cf"
+  publish = "public"
 
 [build.environment]
   NODE_VERSION = "20"
   NPM_FLAGS = "--production=false"
-  # Optimize for Cloudflare Pages
-  GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES = "true"
-  GATSBY_EXPERIMENTAL_QUERY_CONCURRENCY = "4"
-  # Memory optimization for Workers
+  # Disable problematic caching
+  GATSBY_DISABLE_CACHING = "true"
+  # Skip cache directory creation
+  CI = "true"
+  # Memory optimization
   NODE_OPTIONS = "--max_old_space_size=4096"
