@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+
+Disallow: /__gatsby/
+Disallow: /page-data/
+Disallow: /static/
+
+
+Sitemap: https://razvanbibart.com/sitemap.xml
