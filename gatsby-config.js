@@ -1,18 +1,6 @@
 const config = require('./src/config');
 
 module.exports = {
-  // Disable all internal caching for Cloudflare deployment
-  flags: {
-    PRESERVE_FILE_DOWNLOAD_CACHE: false,
-    PRESERVE_WEBPACK_CACHE: false,
-    FAST_DEV: false,
-    PRESERVE_TOUCH_NODE: false,
-    DEV_SSR: false,
-  },
-  // Prevent cache directory creation
-  cache: {
-    cacheLocation: process.env.NODE_ENV === 'production' ? false : undefined,
-  },
   siteMetadata: {
     title: 'Răzvan Bibarț',
     description: 'Răzvan Bibarț is a security engineer',
