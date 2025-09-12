@@ -1,18 +1,13 @@
+# Cloudflare Pages configuration (renamed from netlify.toml)
 [build]
-  # Gatsby build command
   command = "npm run build"
   publish = "public/"
 
-# Node.js version configuration (should match .nvmrc)
 [build.environment]
-  NODE_VERSION = "20.18.1"
-
-# Ensure all deployment contexts use the same Node version
-[context.production.environment]
-  NODE_VERSION = "20.18.1"
-
-[context.deploy-preview.environment]
-  NODE_VERSION = "20.18.1"
-
-[context.branch-deploy.environment]
-  NODE_VERSION = "20.18.1"
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--production=false"
+  # Optimize for Cloudflare Pages
+  GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES = "true"
+  GATSBY_EXPERIMENTAL_QUERY_CONCURRENCY = "4"
+  # Memory optimization for Workers
+  NODE_OPTIONS = "--max_old_space_size=4096"

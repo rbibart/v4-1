@@ -1,0 +1,29 @@
+# Cloudflare Pages Build Configuration
+# https://developers.cloudflare.com/pages/platform/build-configuration/
+
+# Build settings
+[build]
+command = "npm run build"
+publish = "public"
+
+# Environment variables
+[build.environment]
+NODE_VERSION = "20"
+NPM_FLAGS = "--production=false"
+
+# Cache settings for better performance
+[build.processing.css]
+minify = true
+
+[build.processing.js]
+minify = true
+
+[build.processing.html]
+minify = true
+
+# Optimize for static site
+[build.processing.skip_processing]
+# Don't process these file types
+js = false
+css = false
+html = false
