@@ -116,6 +116,10 @@ module.exports = {
       options: { name: `projects`, path: `${__dirname}/content/projects` },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: { name: `landing`, path: `${__dirname}/content/landing` },
+    },
+    {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
