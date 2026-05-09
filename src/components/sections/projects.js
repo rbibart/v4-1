@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
@@ -11,6 +11,7 @@ const StyledProjectsSection = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 1100px;
 
   h2 {
     font-size: clamp(24px, 5vw, var(--fz-heading));
@@ -26,15 +27,13 @@ const StyledProjectsSection = styled.section`
 
   .projects-grid {
     ${({ theme }) => theme.mixins.resetList};
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
     position: relative;
     margin-top: 50px;
-
-    @media (max-width: 1080px) {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    }
+    width: 100%;
   }
 
   .more-button {
@@ -47,6 +46,13 @@ const StyledProject = styled.li`
   position: relative;
   cursor: default;
   transition: var(--transition);
+  flex: 0 1 420px;
+  max-width: 460px;
+
+  @media (max-width: 480px) {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
 
   @media (prefers-reduced-motion: no-preference) {
     &:hover,
@@ -181,6 +187,7 @@ const Projects = () => {
               tech
               github
               external
+              date
             }
             html
           }
@@ -189,9 +196,7 @@ const Projects = () => {
     }
   `);
 
-  const [showMore, setShowMore] = useState(false);
   const revealTitle = useRef(null);
-  const revealArchiveLink = useRef(null);
   const revealProjects = useRef([]);
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -201,21 +206,31 @@ const Projects = () => {
     }
 
     sr.reveal(revealTitle.current, srConfig());
-    sr.reveal(revealArchiveLink.current, srConfig());
     revealProjects.current.forEach((ref, i) => sr.reveal(ref, srConfig(i * 100)));
   }, []);
 
-  const GRID_LIMIT = 6;
-  const projects = data.projects.edges.filter(({ node }) => node);
-  const firstSix = projects.slice(0, GRID_LIMIT);
-  const projectsToShow = showMore ? projects : firstSix;
+  const projectsToShow = data.projects.edges.filter(({ node }) => node);
 
   const projectInner = node => {
     const { frontmatter, html } = node;
-    const { github, external, title, tech } = frontmatter;
+    const { github, external, title, tech, date } = frontmatter;
 
     return (
       <div className="project-inner">
+        {date && (
+          <span
+            style={{
+              position: 'absolute',
+              top: '14px',
+              right: '20px',
+              color: 'var(--light-slate)',
+              fontFamily: 'var(--font-mono)',
+              fontSize: 'var(--fz-xs)',
+              pointerEvents: 'none',
+            }}>
+            {new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })}
+          </span>
+        )}
         <header>
           <div className="project-top">
             <div className="folder">
@@ -278,17 +293,8 @@ const Projects = () => {
           <TransitionGroup component={null}>
             {projectsToShow &&
               projectsToShow.map(({ node }, i) => (
-                <CSSTransition
-                  key={i}
-                  classNames="fadeup"
-                  timeout={i >= GRID_LIMIT ? (i - GRID_LIMIT) * 300 : 300}
-                  exit={false}>
-                  <StyledProject
-                    key={i}
-                    ref={el => (revealProjects.current[i] = el)}
-                    style={{
-                      transitionDelay: `${i >= GRID_LIMIT ? (i - GRID_LIMIT) * 100 : 0}ms`,
-                    }}>
+                <CSSTransition key={i} classNames="fadeup" timeout={300} exit={false}>
+                  <StyledProject key={i} ref={el => (revealProjects.current[i] = el)}>
                     {projectInner(node)}
                   </StyledProject>
                 </CSSTransition>
@@ -296,10 +302,6 @@ const Projects = () => {
           </TransitionGroup>
         )}
       </ul>
-
-      <button className="more-button" onClick={() => setShowMore(!showMore)}>
-        Show {showMore ? 'Less' : 'More'}
-      </button>
     </StyledProjectsSection>
   );
 };

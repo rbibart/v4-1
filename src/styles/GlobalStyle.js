@@ -249,7 +249,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     &[target='_blank'] {
-      cursor: ne-resize;
+      cursor: pointer;
     }
   }
 

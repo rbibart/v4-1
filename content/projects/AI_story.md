@@ -9,4 +9,4 @@ company: 'RBI'
 showInProjects: true
 ---
 
-A story created with the assistance of AI based on the content from this site.
+A short cybersecurity story written with an LLM running locally, with a video generated locally from the story too. I made this in 2024 when running models on your own hardware was still painful. Tiny context windows, quantized weights, lots of fiddling before something usable came out.

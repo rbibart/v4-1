@@ -6,7 +6,7 @@ import sr from '@utils/sr';
 import { usePrefersReducedMotion } from '@hooks';
 
 const StyledAboutSection = styled.section`
-  max-width: 900px;
+  max-width: 1100px;
 
   .inner {
     display: grid;
@@ -21,11 +21,10 @@ const StyledAboutSection = styled.section`
 const StyledText = styled.div`
   ul.skills-list {
     display: grid;
-    grid-template-columns: repeat(2, minmax(140px, 200px));
+    grid-template-columns: 1fr;
     grid-gap: 0 10px;
     padding: 0;
     margin: 20px 0 0 0;
-    overflow: hidden;
     list-style: none;
 
     li {
@@ -126,7 +125,17 @@ const About = () => {
     sr.reveal(revealContainer.current, srConfig());
   }, []);
 
-  const skills = [ 'Cybersecurity', 'Vulnerability Assessment', 'Penetration Testing', 'Cloud Security', 'SIEM Tools', 'Firewall Configuration and Management', 'Identity and Access Management', 'Scripting and Automation' ];
+  const skills = [
+    'Security Architecture & Infrastructure',
+    'Cloud Security',
+    'Phishing & Awareness',
+    'Incident Response & Tabletops',
+    'Zero Trust & Identity',
+    'Vulnerability Management',
+    'Security Automation',
+    'Full-Stack Engineering',
+    'AI Agents & LLM Security',
+  ];
 
   return (
     <StyledAboutSection id="about" ref={revealContainer}>
@@ -138,7 +147,7 @@ const About = () => {
             <p>
               Hello! I’m a cybersecurity professional with a passion for protecting digital environments. I enjoy creating or implementing solutions that secure and empower organizations against cyber threats.
             </p>
-            <p>Highlighted Skills:</p>
+            <p>Areas I focus on:</p>
           </div>
 
           <ul className="skills-list">

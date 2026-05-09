@@ -7,13 +7,10 @@ range: 'September 2019 - Present'
 url: 'https://bitdefender.com/'
 ---
 
-- Perform vulnerability assessment and conduct penetration testing on network, systems and applications;
-- Being involved in vulnerability assessment tasks; creating vulnerability assessment reports, reviewing scan reports (Nessus), testing found vulnerabilities, creating tickets for fixing vulnerabilities;
-- Automate penetration tests and other security checks on network, systems and applications;
-- Performing daily operational 'eyes on glass' real-time monitoring and analysis of security events from multiple sources including but not limited to events from SIEM tools, network and host based IDS, firewall logs, system logs (Linux & Windows), applications and databases;
-- Collaboration with Operations Engineers and technical teams for issue resolution and mitigation;
-- Being involved in development of automation and information security scripts;
-- Documentation of actions taken for audit, regulatory and legal purposes within approved event tracking system;
-- Provide Antivirus & Malware protection application administration and management;
-- Write security assessment reports;
-- Actively contribute to all ongoing and new internal projects.
+- Design, implement and maintain security architecture and infrastructure security across cloud and on-premise environments; perform system and network hardening, oversee infrastructure lifecycle upgrades, and review critical configurations;
+- Take part in incident response on major security incidents, including serving as Incident Response Manager (IRM) on selected cases; work on containment and recovery, SIEM logs and telemetry, stakeholder communication and post-incident reviews; plan and run tabletop exercises with engineering and operations teams;
+- Work with AI agents and Large Language Models in day-to-day security operations; integrate AI-driven automation into internal workflows, evaluate AI-related security risks, and apply OWASP Top 10 for LLMs to internal AI integrations;
+- Plan, execute and analyze phishing simulation campaigns and security awareness programs across the organization; design templates, monitor click-through and reporting metrics, and tune subsequent campaigns based on results;
+- Implement and operate Identity and Access Management policies and Zero Trust principles, including Active Directory and Entra ID configuration, MFA enforcement, and privileged access reviews;
+- Conduct OSINT investigations on threat actors, phishing infrastructure and leaked credentials using tools such as Maltego, Shodan and theHarvester;
+- Develop security automation and scripts for recurring security checks, alerting and operational reporting; build and maintain internal applications and tools used by the Information Security team.

@@ -9,4 +9,4 @@ company: 'RBI'
 showInProjects: true
 ---
 
-Intuitive Text-to-Image Conversion: Simply describe your idea in words, and watch as our AI transforms it into a captivating visual.
+You write a description, you get a picture. I built this in 2024 while playing with text-to-image models. Back then half the prompts came out usable and the other half just looked weird.

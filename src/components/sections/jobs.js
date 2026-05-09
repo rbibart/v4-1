@@ -8,7 +8,7 @@ import sr from '@utils/sr';
 import { usePrefersReducedMotion } from '@hooks';
 
 const StyledJobsSection = styled.section`
-  max-width: 700px;
+  max-width: 1100px;
 
   .inner {
     display: flex;
@@ -39,6 +39,11 @@ const StyledTabList = styled.div`
     padding-left: 50px;
     margin-left: -50px;
     margin-bottom: 30px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
   @media (max-width: 480px) {
     width: calc(100% + 50px);
@@ -75,7 +80,8 @@ const StyledTabButton = styled.button`
   padding: 0 20px 2px;
   border-left: 2px solid var(--lightest-navy);
   background-color: transparent;
-  color: ${({ isActive }) => (isActive ? 'var(--green)' : 'var(--slate)')};
+  color: ${({ isActive, isCurrent }) =>
+    isActive || isCurrent ? 'var(--green)' : 'var(--slate)'};
   font-family: var(--font-mono);
   font-size: var(--fz-xs);
   text-align: left;
@@ -86,10 +92,13 @@ const StyledTabButton = styled.button`
   }
   @media (max-width: 600px) {
     ${({ theme }) => theme.mixins.flexCenter};
-    min-width: 120px;
+    flex-shrink: 0;
+    width: auto;
+    min-width: auto;
     padding: 0 15px;
     border-left: 0;
-    border-bottom: 2px solid var(--lightest-navy);
+    border-bottom: 2px solid
+      ${({ isActive }) => (isActive ? 'var(--green)' : 'var(--lightest-navy)')};
     text-align: center;
   }
 
@@ -97,6 +106,12 @@ const StyledTabButton = styled.button`
   &:focus {
     background-color: var(--light-navy);
   }
+
+  ${({ isCurrent }) =>
+    isCurrent &&
+    `
+    background-color: var(--light-navy);
+  `}
 `;
 
 const StyledHighlight = styled.div`
@@ -113,16 +128,7 @@ const StyledHighlight = styled.div`
   transition-delay: 0.1s;
 
   @media (max-width: 600px) {
-    top: auto;
-    bottom: 0;
-    width: 100%;
-    max-width: var(--tab-width);
-    height: 2px;
-    margin-left: 50px;
-    transform: translateX(calc(${({ activeTabId }) => activeTabId} * var(--tab-width)));
-  }
-  @media (max-width: 480px) {
-    margin-left: 25px;
+    display: none;
   }
 `;
 
@@ -187,7 +193,17 @@ const Jobs = () => {
     }
   `);
 
-  const jobsData = data.jobs.edges;
+  const jobsData = [...data.jobs.edges].sort((a, b) => {
+    const aRange = a.node.frontmatter.range || '';
+    const bRange = b.node.frontmatter.range || '';
+    const aCurrent = aRange.includes('Present');
+    const bCurrent = bRange.includes('Present');
+    // Current jobs first
+    if (aCurrent && !bCurrent) return -1;
+    if (!aCurrent && bCurrent) return 1;
+    // Within past: keep date DESC (already sorted by GraphQL)
+    return 0;
+  });
 
   const [activeTabId, setActiveTabId] = useState(0);
   const [tabFocus, setTabFocus] = useState(null);
@@ -245,16 +261,21 @@ const Jobs = () => {
   return (
     <StyledJobsSection id="jobs" ref={revealContainer}>
       <h2 className="numbered-heading">Where I’ve Worked</h2>
+      <p style={{ marginTop: '-15px', marginBottom: '30px', color: 'var(--light-slate)' }}>
+        Currently at Bitdefender.
+      </p>
 
       <div className="inner">
         <StyledTabList role="tablist" aria-label="Job tabs" onKeyDown={e => onKeyDown(e)}>
           {jobsData &&
             jobsData.map(({ node }, i) => {
-              const { company } = node.frontmatter;
+              const { company, range } = node.frontmatter;
+              const isCurrent = typeof range === 'string' && range.includes('Present');
               return (
                 <StyledTabButton
                   key={i}
                   isActive={activeTabId === i}
+                  isCurrent={isCurrent}
                   onClick={() => setActiveTabId(i)}
                   ref={el => (tabs.current[i] = el)}
                   id={`tab-${i}`}
