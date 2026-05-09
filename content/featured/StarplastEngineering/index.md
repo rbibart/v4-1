@@ -4,7 +4,6 @@ title: 'StarPlast Engineering'
 cover: './starplast.png'
 external: 'https://starplastengineering.com'
 tech:
-  - Wordpress
 
 showInProjects: true
 ---

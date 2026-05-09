@@ -145,7 +145,7 @@ const About = () => {
         <StyledText>
           <div>
             <p>
-              Hello! I’m a cybersecurity professional with a passion for protecting digital environments. I enjoy creating or implementing solutions that secure and empower organizations against cyber threats.
+              Hi, I’m Răzvan, an Information Security Engineer based in Timișoara. I’ve spent the last six years at Bitdefender, working on vulnerability management, security architecture, incident response, security automation and a lot more. I enjoy the parts of the job where deep technical work meets the kind of cross-team conversations that actually move things forward.
             </p>
             <p>Areas I focus on:</p>
           </div>
