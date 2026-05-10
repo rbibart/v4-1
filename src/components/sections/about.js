@@ -145,7 +145,7 @@ const About = () => {
         <StyledText>
           <div>
             <p>
-              Hi, I’m Răzvan, an Information Security Engineer based in Timișoara. I’ve spent the last six years at Bitdefender, working on vulnerability management, security architecture, incident response, security automation and a lot more. I enjoy the parts of the job where deep technical work meets the kind of cross-team conversations that actually move things forward.
+              Hi, I’m Răzvan, an Information Security Engineer based in Timișoara. I’ve spent the last six years at Bitdefender, working on vulnerability management, security architecture, incident response, security automation and a lot more. A lot of my work right now is on AI agents in security operations and building internal tools that get adopted across the company.
             </p>
             <p>Areas I focus on:</p>
           </div>
