@@ -128,13 +128,13 @@ const About = () => {
   const skills = [
     'Security Architecture & Infrastructure',
     'Cloud Security',
+    'AI Agents & LLM Security',
     'Phishing & Awareness',
     'Incident Response & Tabletops',
     'Zero Trust & Identity',
     'Vulnerability Management',
     'Security Automation',
     'Full-Stack Engineering',
-    'AI Agents & LLM Security',
   ];
 
   return (

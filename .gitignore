@@ -9,3 +9,8 @@ package-lock.json
 .DS_Store
 
 .vscode/
+resume_draft.html
+Razvan_Bibart_Resume.pdf
+Razvan_Bibart_Resume.docx
+generate_docx.py
+resume-visual.pdf
